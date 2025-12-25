@@ -13,15 +13,45 @@ body, html {
     position: relative;
 }
 
-/* Particles background */
+/* Particles Background */
 #particles-js {
     position: fixed;
     width: 100%;
     height: 100%;
+    z-index: -2;
+}
+
+/* Floating Gradient Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(255,61,0,0.05), transparent 70%);
+    animation: floatOverlay 30s linear infinite;
     z-index: -1;
 }
 
-/* Body content */
+@keyframes floatOverlay {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(-50px,50px); }
+    100% { transform: translate(0,0); }
+}
+
+/* Custom Cursor */
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ff3d00;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out, background 0.2s;
+    z-index: 9999;
+}
+
+/* Body Content */
 body {
     color: #fff;
     display: flex;
@@ -35,13 +65,13 @@ body {
 header {
     text-align: center;
     margin-bottom: 60px;
-    animation: fadeInDown 1s ease forwards;
 }
 
 header h1 {
     font-size: 3em;
     margin-bottom: 10px;
     color: #ff3d00;
+    text-shadow: 0 0 15px #ff3d00;
 }
 
 header p {
@@ -49,7 +79,7 @@ header p {
     color: #ccc;
 }
 
-/* Card container */
+/* Card Container */
 .card-container {
     display: flex;
     gap: 30px;
@@ -66,9 +96,27 @@ header p {
     text-align: center;
     transition: transform 0.5s, box-shadow 0.5s;
     cursor: pointer;
-    animation: fadeInUp 1s ease forwards;
-    position: relative;
     overflow: hidden;
+    position: relative;
+}
+
+/* Floating Glow Effect on Cards */
+.card::before {
+    content: "";
+    position: absolute;
+    width: 250%;
+    height: 250%;
+    background: radial-gradient(circle, rgba(255,61,0,0.15), transparent 70%);
+    top: -50%;
+    left: -50%;
+    transform: rotate(0deg);
+    animation: rotateGlow 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .card img {
@@ -88,10 +136,10 @@ header p {
     font-size: 0.95em;
 }
 
-/* Hover effects */
+/* Hover Effects */
 .card:hover {
     transform: translateY(-15px) scale(1.05);
-    box-shadow: 0 25px 40px rgba(255, 61, 0, 0.6);
+    box-shadow: 0 25px 40px rgba(255,61,0,0.6);
 }
 
 .card:hover img {
@@ -106,41 +154,14 @@ header p {
     color: #fff;
     border-radius: 12px;
     text-decoration: none;
-    transition: background 0.3s, transform 0.3s;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 10px #ff3d00;
 }
 
 .btn:hover {
     background: #ff5722;
     transform: scale(1.05);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInDown {
-    0% { opacity: 0; transform: translateY(-30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Floating particles on cards */
-.card::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,61,0,0.15) 0%, transparent 70%);
-    top: -50%;
-    left: -50%;
-    transform: rotate(0deg);
-    animation: rotateGlow 6s linear infinite;
-}
-
-@keyframes rotateGlow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    box-shadow: 0 0 25px #ff5722;
 }
 
 /* Responsive */
