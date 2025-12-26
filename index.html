@@ -20,11 +20,14 @@
     align-items: center;
     justify-content: center;
     transition: opacity 0.8s ease, visibility 0.8s;
+    opacity: 1;
+    visibility: visible;
   }
 
   #modern-intro.fade-out {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
   }
 
   .loader-circle {
@@ -52,10 +55,11 @@
     100% { transform: rotate(360deg); }
   }
 
-  /* Ensure main content is ready for fade in */
+  /* Main content starts hidden to prevent flash */
   #main {
     opacity: 0;
     transition: opacity 1s ease;
+    display: block !important; /* Ensure it's not hidden by other styles */
   }
 
   #main.show {
@@ -113,43 +117,6 @@
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <script>
-/* ALL INITIALIZATION LOGIC */
-window.onload = () => {
-  const intro = document.getElementById('modern-intro');
-  const main = document.getElementById('main');
-  const updater = document.getElementById('updater');
-
-  // 1. Start the Updater Progress Bar
-  updater.classList.add("show");
-  
-  // 2. Hide Modern Intro after 2 seconds
-  setTimeout(() => {
-    intro.classList.add("fade-out");
-    main.classList.add("show");
-  }, 2000);
-
-  // 3. Hide Updater after 3.5 seconds
-  setTimeout(() => {
-    updater.classList.remove("show");
-  }, 3500);
-
-  // 4. Initialize Particles if the library loaded
-  if (typeof particlesJS !== 'undefined') {
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 60 },
-        color: { value: "#3b82f6" },
-        line_linked: { enable: true, color: "#3b82f6", opacity: .15 },
-        move: { speed: .6 }
-      }
-    });
-  }
-};
-
-/* CURSOR */
-const cursor = document.querySelector(".cursor");
-document.addEventListener("mousemove", e => {
-  if(cursor) {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-  }
+/* FIX: Run immediately as soon as scripts load */
+function initializeSite() {
+  const intro = document
