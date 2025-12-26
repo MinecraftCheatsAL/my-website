@@ -1,105 +1,80 @@
-/* ---------- Basic Reset ---------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+html,body{width:100%;height:100%;background:#020617;color:#e5edff;overflow-x:hidden}
 
-/* ---------- Body & Fonts ---------- */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #121212;
-  color: #fff;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
+/* PARTICLES */
+#particles-js{position:fixed;inset:0;z-index:-2}
 
-/* ---------- Header ---------- */
-header {
-  text-align: center;
-  padding: 3rem 1rem;
-}
+/* INTRO */
+#intro{position:fixed;inset:0;background:radial-gradient(circle at top,#0a1a3a,#020617);
+display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999}
+#intro h1{font-size:3rem;text-shadow:0 0 25px #3b82f6}
+#intro span{color:#8aa0d6;margin-top:10px}
+#intro.hide{opacity:0;pointer-events:none;transition:opacity .6s}
 
-header h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 0.5rem;
-}
+/* CURSOR */
+.cursor{width:12px;height:12px;background:#3b82f6;border-radius:50%;
+position:fixed;pointer-events:none;transform:translate(-50%,-50%);
+box-shadow:0 0 20px rgba(59,130,246,.6);z-index:1000}
 
-header h2 {
-  font-size: 1.2rem;
-  color: #aaa;
-}
+/* MAIN */
+#main{opacity:0;transition:opacity 1s}
+#main.show{opacity:1}
 
-/* ---------- Clients Section ---------- */
-.clients {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin: 3rem auto;
-  max-width: 1000px;
-}
+/* HEADER */
+header{text-align:center;margin:80px 0 60px}
+header h1{color:#3b82f6;font-size:2.8rem;text-shadow:0 0 20px rgba(59,130,246,.6)}
+header p{color:#8aa0d6;margin-top:10px}
 
-/* ---------- Client Cards ---------- */
-.client-card {
-  background: linear-gradient(145deg, #1e1e1e, #242424);
-  padding: 1.5rem 1rem;
-  border-radius: 15px;
-  width: 200px;
-  text-align: center;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.05);
-}
+/* CARDS */
+.card-container{display:flex;gap:35px;justify-content:center;flex-wrap:wrap}
+.card{width:300px;padding:35px;background:linear-gradient(145deg,#0b1630,#020617);
+border-radius:22px;text-align:center;cursor:pointer;
+box-shadow:0 0 30px rgba(0,0,0,.6);transition:.45s}
+.card:hover{transform:translateY(-12px) scale(1.05);
+box-shadow:0 0 40px rgba(59,130,246,.4)}
+.client-icon{width:100px;height:100px;border-radius:18px;margin-bottom:20px;
+transition:.4s}
+.card:hover .client-icon{transform:rotate(8deg) scale(1.12)}
+.card p{color:#9bb0e5;font-size:.95rem}
 
-.client-card:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.5);
-}
+/* BUTTON */
+.btn{display:inline-block;margin-top:18px;padding:12px 28px;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+border-radius:999px;text-decoration:none;color:white;font-weight:600;
+box-shadow:0 0 20px rgba(59,130,246,.5);transition:.3s}
+.btn:hover{transform:scale(1.1);box-shadow:0 0 35px rgba(59,130,246,.8)}
 
-/* ---------- Client Images ---------- */
-.client-card img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
+/* MODAL */
+#modal{position:fixed;inset:0;background:rgba(2,6,23,.85);
+display:flex;align-items:center;justify-content:center;
+opacity:0;pointer-events:none;transition:.4s;z-index:999}
+#modal.show{opacity:1;pointer-events:auto}
+.modal-box{background:#0b1630;padding:30px 40px;border-radius:22px;
+box-shadow:0 0 40px rgba(59,130,246,.5)}
+.modal-box ul{margin:15px 0}
+.modal-box li{margin:8px 0;color:#9bb0e5}
+.modal-box button{margin-top:10px;padding:10px 25px;border:none;
+border-radius:999px;background:#3b82f6;color:white;cursor:pointer}
 
-.client-card img:hover {
-  transform: rotate(5deg) scale(1.1);
-}
+/* RIPPLE */
+.ripple{position:fixed;width:15px;height:15px;border-radius:50%;
+background:rgba(59,130,246,.4);
+transform:translate(-50%,-50%);animation:ripple .6s;pointer-events:none;z-index:9999}
+@keyframes ripple{to{transform:scale(15);opacity:0}}
 
-/* ---------- Client Names ---------- */
-.client-card p {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
+/* UPDATER */
+#updater{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+background:#0b1630;padding:20px 30px;border-radius:18px;
+box-shadow:0 0 30px rgba(59,130,246,.5);opacity:0;pointer-events:none;
+transition:.4s;z-index:999}
+#updater.show{opacity:1}
+.bar{width:220px;height:6px;background:#020617;border-radius:999px;overflow:hidden;margin-top:10px}
+.bar span{display:block;height:100%;width:0;
+background:linear-gradient(90deg,#2563eb,#3b82f6);animation:load 3s forwards}
+@keyframes load{to{width:100%}}
 
-/* ---------- Particles Background ---------- */
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
-  .clients {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .client-card {
-    width: 70%;
-  }
-}
+/* SOUND */
+#sound-toggle{position:fixed;top:20px;right:20px;background:#0b1630;
+color:#3b82f6;border:none;font-size:1.2rem;padding:10px 14px;
+border-radius:50%;cursor:pointer;
+box-shadow:0 0 20px rgba(59,130,246,.4);z-index:999}
