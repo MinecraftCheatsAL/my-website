@@ -20,14 +20,13 @@
     align-items: center;
     justify-content: center;
     transition: opacity 0.8s ease, visibility 0.8s;
-    opacity: 1;
-    visibility: visible;
   }
 
-  #modern-intro.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+  /* Force hide when this class is added */
+  .fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
   .loader-circle {
@@ -55,15 +54,14 @@
     100% { transform: rotate(360deg); }
   }
 
-  /* Main content starts hidden to prevent flash */
+  /* Main content visibility */
   #main {
     opacity: 0;
     transition: opacity 1s ease;
-    display: block !important; /* Ensure it's not hidden by other styles */
   }
 
   #main.show {
-    opacity: 1;
+    opacity: 1 !important;
   }
 </style>
 </head>
@@ -117,6 +115,70 @@
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <script>
-/* FIX: Run immediately as soon as scripts load */
-function initializeSite() {
-  const intro = document
+/* 1. THE EMERGENCY UNLOCKER */
+// This runs even if other parts of the script fail.
+setTimeout(function() {
+    var introEl = document.getElementById('modern-intro');
+    var mainEl = document.getElementById('main');
+    var updaterEl = document.getElementById('updater');
+    
+    if (introEl) introEl.classList.add("fade-out");
+    if (mainEl) mainEl.classList.add("show");
+    
+    if (updaterEl) {
+        updaterEl.classList.add("show");
+        setTimeout(function() { updaterEl.classList.remove("show"); }, 3000);
+    }
+}, 2000);
+
+/* 2. CURSOR LOGIC */
+document.addEventListener("mousemove", function(e) {
+  var cursor = document.querySelector(".cursor");
+  if (cursor) {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  }
+});
+
+/* 3. MODAL DATA */
+var clientData = {
+  augustus: ["Advanced PvP modules", "Rage & legit modes", "Custom HUD editor", "Frequent updates"],
+  sapphire: ["Lightweight & fast", "Smooth bypasses", "Clean UI", "Low-end PC friendly"]
+};
+
+function showModal(clientName) {
+  var m = document.getElementById("modal");
+  var title = document.getElementById("modal-title");
+  var list = document.getElementById("modal-features");
+  
+  if (m) {
+    m.classList.add("show");
+    title.innerText = clientName === "augustus" ? "Augustus Client" : "Sapphire Lite";
+    list.innerHTML = "";
+    clientData[clientName].forEach(function(f) {
+      var li = document.createElement("li");
+      li.textContent = "✔ " + f;
+      list.appendChild(li);
+    });
+  }
+}
+
+function closeModal() {
+  var m = document.getElementById("modal");
+  if (m) m.classList.remove("show");
+}
+
+/* 4. PARTICLES */
+try {
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 60 },
+      color: { value: "#3b82f6" },
+      line_linked: { enable: true, color: "#3b82f6", opacity: .15 },
+      move: { speed: .6 }
+    }
+  });
+} catch(e) { console.log("Particles skipped"); }
+</script>
+</body>
+</html>
